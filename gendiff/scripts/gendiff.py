@@ -12,7 +12,7 @@ def main():
     parser.add_argument("-f", "--format", help="set format of output")
     
     args = parser.parse_args()
-    print(args.accumulate(args.integers))
+    # print(args.accumulate(args.integers))
 
     diff = generate_diff(args.first_file, args.second_file)
     print(diff)
