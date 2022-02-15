@@ -1,5 +1,4 @@
 import json
-from xmlrpc.client import Boolean
 
 
 def generate_diff(file_path1, file_path2):
@@ -10,16 +9,19 @@ def generate_diff(file_path1, file_path2):
     two_keys = first_file.keys() & second_file.keys()
     deleted_keys = first_file.keys() - second_file.keys()
     added_keys = second_file.keys() - first_file.keys()
-     
+
     for key in all_keys:
         if key in two_keys:
             if first_file[key] == second_file[key]:
-                result += '    {}: {}\n'.format(key, lower_case(first_file[key]))
+                result += '    {}: {}\n'.format
+                (key, lower_case(first_file[key]))
             else:
-                result += '  - {}: {}\n'.format(key, lower_case(first_file[key]))
-                result += '  + {}: {}\n'.format(key, lower_case(second_file[key]))
+                result += '  - {}: {}\n'.format
+                (key, lower_case(first_file[key]))
+                result += '  + {}: {}\n'.format
+                (key, lower_case(second_file[key]))
         elif key in deleted_keys:
-             result += '  - {}: {}\n'.format(key, lower_case(first_file[key]))
+            result += '  - {}: {}\n'.format(key, lower_case(first_file[key]))
         elif key in added_keys:
             result += '  + {}: {}\n'.format(key, lower_case(second_file[key]))
 
@@ -28,13 +30,12 @@ def generate_diff(file_path1, file_path2):
     return result
 
 
-
 def lower_case(element):
-    if element == True:
+    if element is True:
         return 'true'
-    if element == False:
+    if element is False:
         return 'false'
-    if element == None:
+    if element is None:
         return 'null'
     else:
         return element
