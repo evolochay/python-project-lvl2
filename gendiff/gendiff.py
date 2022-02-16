@@ -13,20 +13,20 @@ def generate_diff(file_path1, file_path2):
     for key in all_keys:
         if key in two_keys:
             if first_file[key] == second_file[key]:
-                result += '    {}: {}\n'.format
-                (key, lower_case(first_file[key]))
+                result += '    {}: {}\n'.format(
+                    key, lower_case(first_file[key]))
             else:
-                result += '  - {}: {}\n'.format
-                (key, lower_case(first_file[key]))
-                result += '  + {}: {}\n'.format
-                (key, lower_case(second_file[key]))
+                result += '  - {}: {}\n'.format(
+                    key, lower_case(first_file[key]))
+                result += '  + {}: {}\n'.format(
+                    key, lower_case(second_file[key]))
         elif key in deleted_keys:
             result += '  - {}: {}\n'.format(key, lower_case(first_file[key]))
         elif key in added_keys:
             result += '  + {}: {}\n'.format(key, lower_case(second_file[key]))
 
     result += '}'
-
+    print(result)
     return result
 
 
