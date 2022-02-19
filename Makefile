@@ -22,4 +22,4 @@ make lint:
 	poetry run flake8 gendiff
 
 make test-coverage:
-        poetry run coverage run --source=gendiff -m pytest tests
+	poetry run coverage run --source=gendiff -m pytest tests
