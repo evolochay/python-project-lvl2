@@ -1,4 +1,3 @@
-#from tkinter import PROJECTING
 import pytest
 import json
 from fixtures.result_json import EXPECTED_STRING
