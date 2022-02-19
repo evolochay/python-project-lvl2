@@ -26,7 +26,6 @@ def generate_diff(file_path1, file_path2):
             result += '  + {}: {}\n'.format(key, lower_case(second_file[key]))
 
     result += '}'
-    print(result)
     return result
 
 
