@@ -1,16 +1,22 @@
 from gendiff.parser import parsing
 from operator import itemgetter
 from gendiff.actions import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
+from gendiff.formatters.format import STYlISH_FORMAT
+from gendiff.formatters.format import format_diff
 
 
 def get_file_from_path(path):
     return parsing(path)
 
 
-def generate_diff(path1, path2):
+def generate_diff(path1, path2, format=STYlISH_FORMAT):
     file1 = parsing(path1)
     file2 = parsing(path2)
+    diff = comparing(file1, file2)
+    return format_diff(diff, format)
 
+
+def comparing(file1, file2):
     def diff_dict(first_file, second_file):
         result = {}
         common_keys = first_file.keys() & second_file.keys()
