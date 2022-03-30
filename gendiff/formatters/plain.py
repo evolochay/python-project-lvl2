@@ -3,7 +3,7 @@ from gendiff.actions import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
 
 
 MESSAGE = {CHANGED: "Property '{path}' was updated. "
-                          "From {old_value} to {value}",
+                    "From {old_value} to {value}",
            ADDED: "Property '{path}' was added with value: {value}",
            DELETED: "Property '{path}' was removed"}
 
