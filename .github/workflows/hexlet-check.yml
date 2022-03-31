@@ -19,10 +19,10 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - name: Install dependencies
-        run: ls ./tests 
-
       - uses: actions/checkout@v2
+
+      - name: Check tests dir content
+        run: ls ./tests 
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
