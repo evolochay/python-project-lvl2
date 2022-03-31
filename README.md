@@ -7,7 +7,14 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/foxy-chay/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/foxy-chay/python-project-lvl2/actions)
 
-### Asciinema
+### Asciinema step 6
 
 [![asciicast](https://asciinema.org/a/pCTGRWEbRnQwU0kcQVxpAQh66.svg)](https://asciinema.org/a/pCTGRWEbRnQwU0kcQVxpAQh66)
 
+### Asciinema step 7
+
+[![asciicast](https://asciinema.org/a/ofUNnwZDSpmXQZifd2hTU26CY.svg)](https://asciinema.org/a/ofUNnwZDSpmXQZifd2hTU26CY)
+
+### Asciinema step 8
+
+[![asciicast](https://asciinema.org/a/gfxgEpm91xtegA54IZumI8XJ7.svg)](https://asciinema.org/a/gfxgEpm91xtegA54IZumI8XJ7)
