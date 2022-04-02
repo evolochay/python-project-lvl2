@@ -1,6 +1,3 @@
-from unittest import result
-import json
-import os
 from tests.fixtures.result_stylish import EXPECTED_STRING
 from gendiff.gendiff import generate_diff
 
