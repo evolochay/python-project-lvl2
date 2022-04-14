@@ -6,6 +6,8 @@
 
 [![GitHub Actions Demo](https://github.com/foxy-chay/python-project-lvl2/actions/workflows/github-actions-demo.yml/badge.svg)](https://github.com/foxy-chay/python-project-lvl2/actions/workflows/github-actions-demo.yml)
 
+[![Actions Status](https://github.com/foxy-chay/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/foxy-chay/python-project-lvl2/actions)
+
 ## Description:
 
 Educational project.
@@ -40,9 +42,6 @@ gendiff -h
 ### By default the output format is 'stylish', but it can be changed with --format flag:
 
 gendiff --format plain
-
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/foxy-chay/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/foxy-chay/python-project-lvl2/actions)
 
 ### Asciinema step 6
 
