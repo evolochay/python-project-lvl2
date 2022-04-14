@@ -1,4 +1,3 @@
-import json
 from gendiff.actions import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
 
 
@@ -9,10 +8,15 @@ MESSAGE = {CHANGED: "Property '{path}' was updated. "
 
 
 def get_name(value):
-    if isinstance(value, dict):
-        return '[complex value]'
-    else:
-        return json.dumps(value)
+    if type(value) in (list, dict):
+        value = '[complex value]'
+    elif isinstance(value, bool):
+        value = str(value).lower()
+    elif value is None:
+        value = 'null'
+    elif isinstance(value, str):
+        value = f"'{value}'"
+    return value
 
 
 def plain_output(values):
