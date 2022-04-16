@@ -6,6 +6,11 @@ authors = ["volochay <evgenia@volochay.info>"]
 packages = [
   { include = "gendiff" },
 ]
+classifiers = [
+    "Topic :: Education",
+    "Programming Language :: Python :: 3"
+]
+repository = "https://github.com/foxy-chay/python-project-lvl2"
 
 [tool.poetry.dependencies]
 python = "^3.8"
