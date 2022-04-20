@@ -2,10 +2,14 @@ import json
 import yaml
 
 
-def parsing(some_path):
-    file_extension = some_path.split('.')[-1]
+def get_file_extension(some_data):
+    file_extension = some_data.split('.')[-1]
+    return file_extension
+
+
+def parsing(some_data, file_extension):
     if file_extension in ('yml', 'yaml'):
-        result_dict = yaml.load(open(some_path), Loader=yaml.FullLoader)
+        result_dict = yaml.load(open(some_data), Loader=yaml.FullLoader)
     elif file_extension == 'json':
-        result_dict = json.load(open(some_path))
+        result_dict = json.load(open(some_data))
     return result_dict
