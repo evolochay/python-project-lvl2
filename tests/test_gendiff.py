@@ -8,6 +8,11 @@ def read_file(file_path):
     return result
 
 
+def test_error():
+    with pytest.raises(UnboundLocalError):
+        generate_diff('./tests/fixtures/file1.json', 'stylish')
+
+
 TEST_DATA = [
     ('./tests/fixtures/file1.json', './tests/fixtures/file2.json',
      'stylish', './tests/fixtures/result_stylish.txt'),
