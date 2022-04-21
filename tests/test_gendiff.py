@@ -22,7 +22,7 @@ TEST_DATA = [
      'plain', './tests/fixtures/plain_result.txt'),
     ('./tests/fixtures/file1.json', './tests/fixtures/file2.json',
      'json', './tests/fixtures/result_json.json'),
-     ('./tests/fixtures/file1.yml', './tests/fixtures/file2.yml',
+    ('./tests/fixtures/file1.yml', './tests/fixtures/file2.yml',
      'plain', './tests/fixtures/plain_result.txt')
 ]
 
