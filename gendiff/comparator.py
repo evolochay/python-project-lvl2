@@ -26,10 +26,10 @@ def comparing(first_dict, second_dict):
                  'value': second_dict[key]}
 
     for key in deleted_keys:
-        result[key] = {'action': DELETED, 'value': first_dict[key]}
+        result[key] = ({'action': DELETED, 'value': first_dict[key]})
 
     for key in added_keys:
-        result[key] = {'action': ADDED, 'value': second_dict[key]}
+        result[key] = ({'action': ADDED, 'value': second_dict[key]})
 
     output_dict = dict(sorted(result.items(), key=itemgetter(0)))
     return output_dict

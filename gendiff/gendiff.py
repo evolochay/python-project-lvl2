@@ -19,5 +19,5 @@ def get_file_extension(some_data):
 
 
 def get_data(pathfile):
-     with open(pathfile, 'r') as data:
-         return parsing(data, get_file_extension(pathfile))
+    with open(pathfile, 'r') as data:
+        return parsing(data, get_file_extension(pathfile))

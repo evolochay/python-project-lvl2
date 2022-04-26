@@ -8,7 +8,7 @@ def parsing(some_data, format):
             result_dict = yaml.load(some_data, Loader=yaml.FullLoader)
         elif format == 'json':
             result_dict = json.load(some_data)
-        
+
         if result_dict is None:
             raise TypeError
     except (TypeError, yaml.parser.ParserError):
