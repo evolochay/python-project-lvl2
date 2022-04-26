@@ -6,9 +6,7 @@ from gendiff.comparator import comparing
 
 def generate_diff(path1, path2, format=STYlISH_FORMAT):
     first_dict = get_data(path1)
-    print(first_dict)
     second_dict = get_data(path2)
-    print(second_dict)
     diff = comparing(first_dict, second_dict)
     return format_diff(diff, format)
 
