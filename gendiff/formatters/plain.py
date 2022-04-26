@@ -23,7 +23,7 @@ def plain_output(values):
     def walk(current_value, path):
         result = []
         for key, value in current_value.items():
-            action = value.get('action')
+            action = value.get('type')
             if isinstance(value, dict) and action != UNCHANGED:
                 path.append(key)
                 if action == NESTED:

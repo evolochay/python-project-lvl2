@@ -27,12 +27,12 @@ def make_output(values, replacer=' ', spaces_count=1):
         for key, value in value.items():
             # if only copy dictionary
             is_value_dict = isinstance(value, dict)
-            if (is_value_dict and value.get('action') is None) \
+            if (is_value_dict and value.get('type') is None) \
                     or not is_value_dict:
                 sign = ACTION_SIGN[UNCHANGED]
                 new_value = value
             else:
-                sign = ACTION_SIGN[value.get('action')]
+                sign = ACTION_SIGN[value.get('type')]
                 if isinstance(sign, list):
                     old_sign = sign[0]
                     old_value = value['old_value']
