@@ -25,7 +25,11 @@ def comparing(first_dict, second_dict):
                  'old_value': first_dict[key],
                  'value': second_dict[key]}
 
-    result.update(add_value(DELETED, deleted_keys, first_dict))
+    some_dict = {}
+    for key in deleted_keys:
+        some_dict[key] = {'action': DELETED, 'value': first_dict[key]}
+        result.update(some_dict)
+
     result.update(add_value(ADDED, added_keys, second_dict))
 
     output_dict = dict(sorted(result.items(), key=itemgetter(0)))

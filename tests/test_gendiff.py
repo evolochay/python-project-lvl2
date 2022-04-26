@@ -9,8 +9,8 @@ def read_file(file_path):
 
 
 def test_error():
-     with pytest.raises(FileNotFoundError):
-         generate_diff('./tests/fixtures/file1.json', 'stylish')
+    with pytest.raises(FileNotFoundError):
+        generate_diff('./tests/fixtures/file1.json', 'stylish')
 
 
 TEST_DATA = [
