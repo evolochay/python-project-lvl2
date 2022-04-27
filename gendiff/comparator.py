@@ -12,26 +12,26 @@ def comparing(first_dict, second_dict):
         if isinstance(first_dict[key],
                       dict) and isinstance(second_dict[key], dict):
             result[key] = \
-                {'action': NESTED,
+                {'type': NESTED,
                  'value': comparing(first_dict[key], second_dict[key])}
 
         elif first_dict[key] == second_dict[key]:
             result[key] = \
-                {'action': UNCHANGED,
+                {'type': UNCHANGED,
                  'value': first_dict[key]}
         else:
             result[key] = \
-                {'action': CHANGED,
+                {'type': CHANGED,
                  'old_value': first_dict[key],
                  'value': second_dict[key]}
 
     some_dict = {}
     for key in deleted_keys:
-        some_dict[key] = {'action': DELETED, 'value': first_dict[key]}
+        some_dict[key] = {'type': DELETED, 'value': first_dict[key]}
         result.update(some_dict)
 
     for key in added_keys:
-        some_dict[key] = {'action': ADDED, 'value': second_dict[key]}
+        some_dict[key] = {'type': ADDED, 'value': second_dict[key]}
         result.update(some_dict)
 
     output_dict = dict(sorted(result.items(), key=itemgetter(0)))

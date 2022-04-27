@@ -16,8 +16,6 @@ def test_error():
 TEST_DATA = [
     ('./tests/fixtures/file1.json', './tests/fixtures/file2.json',
      'stylish', './tests/fixtures/result_stylish.txt'),
-    ('./tests/fixtures/file1.json', './tests/fixtures/file2.json',
-     'json', './tests/fixtures/result_json.json'),
     ('./tests/fixtures/file1.yml', './tests/fixtures/file2.yml',
      'stylish', './tests/fixtures/result_stylish.txt'),
     ('./tests/fixtures/file1.json', './tests/fixtures/file2.json',
