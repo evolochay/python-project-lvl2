@@ -18,7 +18,8 @@ def format_stylish(diff, indent=0):
         status = diff_value['type']
         if status == CHANGED:
             value = format_value(diff_value['old_value'], new_indent)
-            stylish_diff.append(add_prefix(new_indent, DELETED, diff_key, value))
+            stylish_diff.append(add_prefix
+                                (new_indent, DELETED, diff_key, value))
             value = format_value(diff_value['value'], new_indent)
             stylish_diff.append(add_prefix(new_indent, ADDED, diff_key, value))
             continue
