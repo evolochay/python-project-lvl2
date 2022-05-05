@@ -1,5 +1,4 @@
-from unittest import result
-from gendiff.gendiff import generate_diff, reader
+from gendiff.gendiff import generate_diff
 import pytest
 import json
 
@@ -58,8 +57,8 @@ def test_gendiff_json(file1, file2):
 @pytest.mark.parametrize('data_file1, data_file2',
                          [('./tests/fixtures/empty.yaml',
                            './tests/fixtures/file1.json')])
-def test_error(data_file1, data_file2):
+def test_empty_file(data_file1, data_file2):
     try:
-         generate_diff(data_file1, data_file2)
+        generate_diff(data_file1, data_file2)
     except AttributeError:
         print('Problem with file')
