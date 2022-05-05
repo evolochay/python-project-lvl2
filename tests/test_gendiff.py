@@ -1,4 +1,5 @@
-from gendiff.gendiff import generate_diff
+from unittest import result
+from gendiff.gendiff import generate_diff, reader
 import pytest
 import json
 
@@ -22,7 +23,9 @@ TEST_DATA = [
     ('./tests/fixtures/file1.json', './tests/fixtures/file2.json',
      'plain', './tests/fixtures/plain_result.txt'),
     ('./tests/fixtures/file1.yml', './tests/fixtures/file2.yml',
-     'plain', './tests/fixtures/plain_result.txt')
+     'plain', './tests/fixtures/plain_result.txt'),
+    ('./tests/fixtures/file1.json', './tests/fixtures/file2.yml',
+     'stylish', './tests/fixtures/result_stylish.txt'),
 ]
 
 
@@ -40,13 +43,23 @@ def is_json(json_data):
     return True
 
 
-@pytest.mark.parametrize('data_file1, data_file2',
+@pytest.mark.parametrize('file1, file2',
                          [('./tests/fixtures/file1.yml',
                            './tests/fixtures/file2.json'),
                           ('./tests/fixtures/file1.json',
                            './tests/fixtures/file1.json')])
-def test_gendiff_json(data_file1, data_file2):
-    result1 = generate_diff(data_file1, data_file2, 'json')
-    result2 = generate_diff(data_file1, data_file2)
+def test_gendiff_json(file1, file2):
+    result1 = generate_diff(file1, file2, 'json')
+    result2 = generate_diff(file1, file2)
     assert is_json(result1) is True
     assert is_json(result2) is False
+
+
+@pytest.mark.parametrize('data_file1, data_file2',
+                         [('./tests/fixtures/empty.yaml',
+                           './tests/fixtures/file1.json')])
+def test_error(data_file1, data_file2):
+    try:
+         generate_diff(data_file1, data_file2)
+    except AttributeError:
+        print('Problem with file')

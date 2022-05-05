@@ -11,14 +11,14 @@ get_status_sign = {
 }.get
 
 
-def format_stylish(diff, indent=0):  # noqa: WPS210
+def format_stylish(diff, indent=0):
     stylish_diff = []
     for diff_key, diff_value in sorted(diff.items()):
         new_indent = indent + INDENT_STEP
         status = diff_value['type']
         if status == CHANGED:
             value = format_value(diff_value['old_value'], new_indent)
-            stylish_diff.append(add_prefix(new_indent, DELETED, diff_key, value))  # noqa: E501
+            stylish_diff.append(add_prefix(new_indent, DELETED, diff_key, value))
             value = format_value(diff_value['value'], new_indent)
             stylish_diff.append(add_prefix(new_indent, ADDED, diff_key, value))
             continue
