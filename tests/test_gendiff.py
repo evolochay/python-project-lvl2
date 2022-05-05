@@ -44,7 +44,7 @@ def is_json(json_data):
                          [('./tests/fixtures/file1.yml',
                            './tests/fixtures/file2.json'),
                           ('./tests/fixtures/file1.json',
-                           './tests/fixtures/file1.json')])            
+                           './tests/fixtures/file1.json')])
 def test_gendiff_json(data_file1, data_file2):
     result1 = generate_diff(data_file1, data_file2, 'json')
     result2 = generate_diff(data_file1, data_file2)
