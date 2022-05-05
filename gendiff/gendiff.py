@@ -5,8 +5,8 @@ from gendiff.comparator import comparing
 
 
 def generate_diff(path1, path2, format=STYlISH_FORMAT):
-    first_dict = get_data(path1)
-    second_dict = get_data(path2)
+    first_dict = parsing(reader(path1), get_file_extension(path1))
+    second_dict = parsing(reader(path2), get_file_extension(path2))
     diff = comparing(first_dict, second_dict)
     return format_diff(diff, format)
 
@@ -16,6 +16,8 @@ def get_file_extension(some_data):
     return file_extension
 
 
-def get_data(pathfile):
-    with open(pathfile, 'r') as data:
-        return parsing(data, get_file_extension(pathfile))
+def reader(some_data):
+    result = ''
+    with open(some_data) as file_data:
+        result = file_data.read()
+    return result

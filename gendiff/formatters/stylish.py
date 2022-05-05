@@ -1,52 +1,61 @@
-import json
-import itertools
-from gendiff.actions import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
+from gendiff.types import CHANGED, ADDED, DELETED, NESTED
 
-ACTION_SIGN = {CHANGED: ['-', '+'],
-               UNCHANGED: ' ',
-               ADDED: '+',
-               DELETED: '-',
-               NESTED: ' '}
+LF_CHAR = '\n'
+INDENT_CHAR = ' '
+INDENT_STEP = 4
 
 
-def get_str(value):
-    if isinstance(value, str):
-        return value
-    else:
-        return json.dumps(value)
+get_status_sign = {
+    ADDED: '+ ',
+    DELETED: '- ',
+}.get
 
 
-def make_output(values, replacer=' ', spaces_count=1):
-    def walk(value, depth):
-        if not isinstance(value, dict):
-            return get_str(value)
-        deep_indent_size = depth * spaces_count
-        deep_indent = replacer * deep_indent_size
-        current_replacer = replacer * (deep_indent_size - spaces_count)
-        lines = []
-        for key, value in value.items():
-            # if only copy dictionary
-            is_value_dict = isinstance(value, dict)
-            if (is_value_dict and value.get('type') is None) \
-                    or not is_value_dict:
-                sign = ACTION_SIGN[UNCHANGED]
-                new_value = value
-            else:
-                sign = ACTION_SIGN[value.get('type')]
-                if isinstance(sign, list):
-                    old_sign = sign[0]
-                    old_value = value['old_value']
-                    lines.append(f'{deep_indent}{old_sign}{replacer}{key}: '
-                                 f'{walk(old_value, depth + 2)}')
-                    sign = sign[1]
-                new_value = value['value']
-            lines.append(f'{deep_indent}{sign}{replacer}{key}: '
-                         f'{walk(new_value, depth + 2)}')
-        result = itertools.chain("{", lines, [current_replacer + "}"])
-        return '\n'.join(result)
-
-    return walk(values, 1)
+def format_stylish(diff, indent=0):  # noqa: WPS210
+    stylish_diff = []
+    for diff_key, diff_value in sorted(diff.items()):
+        new_indent = indent + INDENT_STEP
+        status = diff_value['type']
+        if status == CHANGED:
+            value = format_value(diff_value['old_value'], new_indent)
+            stylish_diff.append(add_prefix(new_indent, DELETED, diff_key, value))  # noqa: E501
+            value = format_value(diff_value['value'], new_indent)
+            stylish_diff.append(add_prefix(new_indent, ADDED, diff_key, value))
+            continue
+        if status == NESTED:
+            value = format_stylish(diff_value['value'], new_indent)
+        else:
+            value = format_value(diff_value['value'], new_indent)
+        stylish_diff.append(add_prefix(new_indent, status, diff_key, value))
+    return compose_stylish(indent, stylish_diff)
 
 
-def stylish(data):
-    return make_output(data, replacer=' ', spaces_count=2)
+def format_value(value, indent):
+    if isinstance(value, dict):
+        stylish_value = []
+        for node_key, node_value in value.items():
+            new_indent = indent + INDENT_STEP
+            value = format_value(node_value, new_indent)
+            stylish_value.append(add_prefix(new_indent, None, node_key, value))
+        return compose_stylish(indent, stylish_value)
+    if isinstance(value, bool):
+        return str(value).lower()
+    if value is None:
+        return 'null'
+    return str(value)
+
+
+def add_prefix(indent, status, node_key, node_value):
+    prefix = LF_CHAR + INDENT_CHAR * indent
+    status_sign = get_status_sign(status)
+    if status_sign:
+        prefix = prefix[:-2] + status_sign
+    return '{0}{1}: {2}'.format(prefix, node_key, node_value)
+
+
+def compose_stylish(indent, output):
+    return '{{{0}}}'.format(''.join(output) + LF_CHAR + INDENT_CHAR * indent)
+
+
+def stylish(diff):
+    return format_stylish(diff)

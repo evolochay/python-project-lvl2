@@ -1,4 +1,4 @@
-from gendiff.actions import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
+from gendiff.types import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
 from operator import itemgetter
 
 

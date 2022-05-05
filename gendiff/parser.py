@@ -2,16 +2,8 @@ import json
 import yaml
 
 
-def parsing(some_data, format):
-    try:
-        if format in ('yml', 'yaml'):
-            result_dict = yaml.load(some_data, Loader=yaml.FullLoader)
-        elif format == 'json':
-            result_dict = json.load(some_data)
-
-        if result_dict is None:
-            raise TypeError
-    except (TypeError, yaml.parser.ParserError):
-        return False
-    else:
-        return result_dict
+def parsing(some_data, extension):
+    if extension == 'json':
+        return json.loads(some_data)
+    if extension == 'yaml' or extension == 'yml':
+        return yaml.safe_load(some_data)

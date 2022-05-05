@@ -1,5 +1,6 @@
 from gendiff.gendiff import generate_diff
 import pytest
+import json
 
 
 def read_file(file_path):
@@ -29,3 +30,24 @@ TEST_DATA = [
 def test_gendiff(file1, file2, format, result_path):
     result = read_file(result_path)
     assert generate_diff(file1, file2, format) == result
+
+
+def is_json(json_data):
+    try:
+        json.loads(json_data)
+    except ValueError:
+        return False
+    return True
+
+
+@pytest.mark.parametrize('data_file1, data_file2',
+                         [('./tests/fixtures/file1.yml',
+                           './tests/fixtures/file2.json'),
+                          ('./tests/fixtures/file1.json',
+                           './tests/fixtures/file1.json')])
+                           
+def test_gendiff_json(data_file1, data_file2):
+    result1 = generate_diff(data_file1, data_file2, 'json')
+    result2 = generate_diff(data_file1, data_file2)
+    assert is_json(result1) is True
+    assert is_json(result2) is False

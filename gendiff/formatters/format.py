@@ -15,3 +15,5 @@ def format_diff(data, format_name):
         return plain_output(data)
     elif format_name == JSON_FORMAT:
         return json_format(data)
+    else:
+        raise Exception('Wrong format!')

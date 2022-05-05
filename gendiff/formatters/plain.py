@@ -1,4 +1,4 @@
-from gendiff.actions import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
+from gendiff.types import CHANGED, ADDED, DELETED, NESTED, UNCHANGED
 
 
 MESSAGE = {CHANGED: "Property '{path}' was updated. "
@@ -23,15 +23,15 @@ def plain_output(values):
     def walk(current_value, path):
         result = []
         for key, value in current_value.items():
-            action = value.get('type')
-            if isinstance(value, dict) and action != UNCHANGED:
+            type = value.get('type')
+            if type != UNCHANGED:
                 path.append(key)
-                if action == NESTED:
+                if type == NESTED:
                     result.append(walk(value.get('value'), path))
                 else:
                     old_value = get_name(value.get('old_value'))
                     new_value = get_name(value.get('value'))
-                    result.append(MESSAGE[action].format(
+                    result.append(MESSAGE[type].format(
                         path='.'.join(path),
                         old_value=old_value,
                         value=new_value
