@@ -1,14 +1,14 @@
-from gendiff.parser import parsing
+from gendiff.parser import parse_data
 from gendiff.formatters.format import STYlISH_FORMAT
-from gendiff.formatters.format import format_diff
+from gendiff.formatters.format import make_format_diff
 from gendiff.comparator import comparing
 
 
 def generate_diff(path1, path2, format=STYlISH_FORMAT):
-    first_dict = parsing(reader(path1), get_file_extension(path1))
-    second_dict = parsing(reader(path2), get_file_extension(path2))
+    first_dict = parse_data(read_data(path1), get_file_extension(path1))
+    second_dict = parse_data(read_data(path2), get_file_extension(path2))
     diff = comparing(first_dict, second_dict)
-    return format_diff(diff, format)
+    return make_format_diff(diff, format)
 
 
 def get_file_extension(some_data):
@@ -16,7 +16,7 @@ def get_file_extension(some_data):
     return file_extension
 
 
-def reader(some_data):
+def read_data(some_data):
     result = ''
     with open(some_data) as file_data:
         result = file_data.read()

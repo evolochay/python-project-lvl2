@@ -1,6 +1,6 @@
-from gendiff.formatters.plain import plain_output
-from gendiff.formatters.stylish import stylish
-from gendiff.formatters.json_format import json_format
+from gendiff.formatters.plain import make_plain_output
+from gendiff.formatters.stylish import make_stylish
+from gendiff.formatters.json_format import make_json_format
 
 
 PLAIN_FORMAT = 'plain'
@@ -8,12 +8,12 @@ STYlISH_FORMAT = 'stylish'
 JSON_FORMAT = 'json'
 
 
-def format_diff(data, format_name):
+def make_format_diff(data, format_name):
     if format_name == STYlISH_FORMAT:
-        return stylish(data)
+        return make_stylish(data)
     elif format_name == PLAIN_FORMAT:
-        return plain_output(data)
+        return make_plain_output(data)
     elif format_name == JSON_FORMAT:
-        return json_format(data)
+        return make_json_format(data)
     else:
         raise Exception('Wrong format!')

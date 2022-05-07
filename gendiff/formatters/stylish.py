@@ -11,34 +11,36 @@ get_status_sign = {
 }.get
 
 
-def format_stylish(diff, indent=0):
+def make_stylish(diff, depth=0):
     stylish_diff = []
     for diff_key, diff_value in sorted(diff.items()):
-        new_indent = indent + INDENT_STEP
+        new_depth = depth + INDENT_STEP
         status = diff_value['type']
         if status == CHANGED:
-            value = format_value(diff_value['old_value'], new_indent)
-            stylish_diff.append(add_prefix
-                                (new_indent, DELETED, diff_key, value))
-            value = format_value(diff_value['value'], new_indent)
-            stylish_diff.append(add_prefix(new_indent, ADDED, diff_key, value))
+            value = format_value(diff_value['old_value'], new_depth)
+            stylish_diff.append(make_line
+                                (new_depth, DELETED, diff_key, value))
+            value = format_value(diff_value['value'], new_depth)
+            stylish_diff.append(make_line(new_depth, ADDED, diff_key, value))
             continue
         if status == NESTED:
-            value = format_stylish(diff_value['value'], new_indent)
+            value = make_stylish(diff_value['value'], new_depth)
         else:
-            value = format_value(diff_value['value'], new_indent)
-        stylish_diff.append(add_prefix(new_indent, status, diff_key, value))
-    return compose_stylish(indent, stylish_diff)
+            value = format_value(diff_value['value'], new_depth)
+        stylish_diff.append(make_line(new_depth, status, diff_key, value))
+    return '{{{0}}}'.format(
+           ''.join(stylish_diff) + LF_CHAR + INDENT_CHAR * depth)
 
 
-def format_value(value, indent):
+def format_value(value, depth):
     if isinstance(value, dict):
         stylish_value = []
         for node_key, node_value in value.items():
-            new_indent = indent + INDENT_STEP
-            value = format_value(node_value, new_indent)
-            stylish_value.append(add_prefix(new_indent, None, node_key, value))
-        return compose_stylish(indent, stylish_value)
+            new_depth = depth + INDENT_STEP
+            value = format_value(node_value, new_depth)
+            stylish_value.append(make_line(new_depth, None, node_key, value))
+        return '{{{0}}}'.format(
+               ''.join(stylish_value) + LF_CHAR + INDENT_CHAR * depth)
     if isinstance(value, bool):
         return str(value).lower()
     if value is None:
@@ -46,17 +48,9 @@ def format_value(value, indent):
     return str(value)
 
 
-def add_prefix(indent, status, node_key, node_value):
-    prefix = LF_CHAR + INDENT_CHAR * indent
+def make_line(depth, status, node_key, node_value):
+    prefix = LF_CHAR + INDENT_CHAR * depth
     status_sign = get_status_sign(status)
     if status_sign:
         prefix = prefix[:-2] + status_sign
     return '{0}{1}: {2}'.format(prefix, node_key, node_value)
-
-
-def compose_stylish(indent, output):
-    return '{{{0}}}'.format(''.join(output) + LF_CHAR + INDENT_CHAR * indent)
-
-
-def stylish(diff):
-    return format_stylish(diff)

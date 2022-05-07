@@ -7,7 +7,7 @@ MESSAGE = {CHANGED: "Property '{path}' was updated. "
            DELETED: "Property '{path}' was removed"}
 
 
-def get_name(value):
+def get_str_from_value(value):
     if type(value) in (list, dict):
         value = '[complex value]'
     elif isinstance(value, bool):
@@ -19,7 +19,7 @@ def get_name(value):
     return value
 
 
-def plain_output(values):
+def make_plain_output(values):
     def walk(current_value, path):
         result = []
         for key, value in current_value.items():
@@ -29,8 +29,8 @@ def plain_output(values):
                 if type == NESTED:
                     result.append(walk(value.get('value'), path))
                 else:
-                    old_value = get_name(value.get('old_value'))
-                    new_value = get_name(value.get('value'))
+                    old_value = get_str_from_value(value.get('old_value'))
+                    new_value = get_str_from_value(value.get('value'))
                     result.append(MESSAGE[type].format(
                         path='.'.join(path),
                         old_value=old_value,
