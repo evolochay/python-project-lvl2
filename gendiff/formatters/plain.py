@@ -24,19 +24,21 @@ def make_plain_output(values):
         result = []
         for key, value in current_value.items():
             type = value.get('type')
-            if type != UNCHANGED:
+            if type == UNCHANGED:
+                continue
+            elif type == NESTED:
                 path.append(key)
-                if type == NESTED:
-                    result.append(walk(value.get('value'), path))
-                else:
-                    old_value = get_str_from_value(value.get('old_value'))
-                    new_value = get_str_from_value(value.get('value'))
-                    result.append(MESSAGE[type].format(
-                        path='.'.join(path),
-                        old_value=old_value,
-                        value=new_value
-                    ))
-                path.pop(len(path) - 1)
+                result.append(walk(value.get('value'), path))
+            else:
+                path.append(key)
+                old_value = get_str_from_value(value.get('old_value'))
+                new_value = get_str_from_value(value.get('value'))
+                result.append(MESSAGE[type].format(
+                    path='.'.join(path),
+                    old_value=old_value,
+                    value=new_value
+                ))
+            path.pop(len(path) - 1)
         return '\n'.join(result)
 
     return walk(values, [])

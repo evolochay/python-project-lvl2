@@ -21,5 +21,6 @@ package-reinstall:
 make lint:
 	poetry run flake8 gendiff
 
+
 make test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml tests/
