@@ -36,8 +36,8 @@ def make_plain_output(values):
                 new_value = get_str_from_value(value.get("value"))
                 result.append(
                     MESSAGE[type].format(
-                        path=".".join(path), old_value=old_value,
-                        value=new_value
+                        path=".".join(path),
+                        old_value=old_value, value=new_value
                     )
                 )
             path.pop(len(path) - 1)

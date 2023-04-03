@@ -12,25 +12,30 @@ get_status_sign = {
 
 
 def make_stylish(diff, depth=0):
-    stylish_diff = []
-    for diff_key, diff_value in sorted(diff.items()):
-        next_depth = depth + 1
-        status = diff_value["type"]
-        if status == CHANGED:
-            value = format_value(diff_value["old_value"], next_depth)
-            stylish_diff.append(
-                make_line(next_depth * INDENT, DELETED, diff_key, value)
-            )
-            value = format_value(diff_value["value"], next_depth)
-            stylish_diff.append(make_line(next_depth * INDENT,
-                                          ADDED, diff_key, value))
-            continue
-        if status == NESTED:
-            value = make_stylish(diff_value["value"], next_depth)
-        else:
-            value = format_value(diff_value["value"], next_depth)
-        stylish_diff.append(make_line(next_depth * INDENT,
-                                      status, diff_key, value))
+    stylish_diff = [
+        make_line(
+            (depth + 1) * INDENT,
+            DELETED,
+            diff_key,
+            format_value(diff_value["old_value"], depth + 1),
+        ) + make_line(
+            (depth + 1) * INDENT,
+            ADDED,
+            diff_key,
+            format_value(diff_value["value"], depth + 1),
+        )
+        if diff_value["type"] == CHANGED
+        else make_line(
+            (depth + 1) * INDENT,
+            status,
+            diff_key,
+            make_stylish(diff_value["value"], depth + 1)
+            if status == NESTED
+            else format_value(diff_value["value"], depth + 1),
+        )
+        for diff_key, diff_value in sorted(diff.items())
+        for status in [diff_value["type"]]
+    ]
     return "{{{0}}}".format(
         "".join(stylish_diff) + LF_CHAR + INDENT_CHAR * (depth * INDENT)
     )
