@@ -12,12 +12,12 @@ def generate_diff(path1, path2, format=STYlISH_FORMAT):
 
 
 def get_file_extension(some_data):
-    file_extension = some_data.split('.')[-1]
+    file_extension = some_data.split(".")[-1]
     return file_extension
 
 
 def read_data(some_data):
-    result = ''
+    result = ""
     with open(some_data) as file_data:
         result = file_data.read()
     return result
